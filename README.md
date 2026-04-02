@@ -224,3 +224,4 @@ cd ../server && node server.js
 
 Student Assignment — 31748/32516 Web Systems
 Submitted: April 2026
+# ShopEase
