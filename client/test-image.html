@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Test</title>
+</head>
+<body>
+    <h1>Testing Image Loading</h1>
+
+    <h2>Direct Image Path Test:</h2>
+    <img src="/image/headphones.svg" alt="Headphones" style="width: 200px; height: 150px; border: 1px solid #ccc;">
+    <img src="/image/watch.svg" alt="Watch" style="width: 200px; height: 150px; border: 1px solid #ccc;">
+    <img src="/image/cutting-board.svg" alt="Cutting Board" style="width: 200px; height: 150px; border: 1px solid #ccc;">
+
+    <h2>Full URL Test:</h2>
+    <img src="http://localhost:5173/image/yoga-mat.svg" alt="Yoga Mat" style="width: 200px; height: 150px; border: 1px solid #ccc;">
+
+    <script>
+        // Test loading images via JavaScript
+        const testImage = new Image();
+        testImage.onload = () => console.log('Image loaded successfully');
+        testImage.onerror = (e) => console.error('Image failed to load:', e);
+        testImage.src = '/image/dumbbell.svg';
+    </script>
+</body>
+</html>

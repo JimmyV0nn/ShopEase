@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <defs>
+    <linearGradient id="yogaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbc2eb"/>
+      <stop offset="100%" stop-color="#a6c1ee"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#yogaGrad)"/>
+
+  <!-- Yoga mat icon (rolled) -->
+  <g transform="translate(200, 150)">
+    <!-- Mat roll end view (left) -->
+    <ellipse cx="-60" cy="0" rx="15" ry="50" fill="white" opacity="0.95"/>
+    <ellipse cx="-60" cy="0" rx="12" ry="47" fill="#fbc2eb" opacity="0.3"/>
+    <ellipse cx="-60" cy="0" rx="9" ry="44" fill="white" opacity="0.9"/>
+    <ellipse cx="-60" cy="0" rx="6" ry="41" fill="#fbc2eb" opacity="0.3"/>
+    <ellipse cx="-60" cy="0" rx="3" ry="38" fill="white" opacity="0.85"/>
+
+    <!-- Mat cylinder body -->
+    <rect x="-60" y="-50" width="120" height="100" fill="white" opacity="0.95"/>
+
+    <!-- Mat roll end view (right) -->
+    <ellipse cx="60" cy="0" rx="15" ry="50" fill="white" opacity="0.95"/>
+    <ellipse cx="60" cy="0" rx="12" ry="47" fill="#fbc2eb" opacity="0.3"/>
+    <ellipse cx="60" cy="0" rx="9" ry="44" fill="white" opacity="0.9"/>
+    <ellipse cx="60" cy="0" rx="6" ry="41" fill="#fbc2eb" opacity="0.3"/>
+    <ellipse cx="60" cy="0" rx="3" ry="38" fill="white" opacity="0.85"/>
+
+    <!-- Strap -->
+    <rect x="-10" y="-55" width="20" height="110" rx="3" fill="white" opacity="0.8"/>
+    <rect x="-8" y="-53" width="16" height="106" rx="2" fill="#a6c1ee" opacity="0.4"/>
+
+    <!-- Texture lines on mat -->
+    <line x1="-50" y1="-50" x2="-50" y2="50" stroke="#fbc2eb" stroke-width="1" opacity="0.2"/>
+    <line x1="-30" y1="-50" x2="-30" y2="50" stroke="#fbc2eb" stroke-width="1" opacity="0.2"/>
+    <line x1="30" y1="-50" x2="30" y2="50" stroke="#fbc2eb" stroke-width="1" opacity="0.2"/>
+    <line x1="50" y1="-50" x2="50" y2="50" stroke="#fbc2eb" stroke-width="1" opacity="0.2"/>
+  </g>
+</svg>
