@@ -2,22 +2,6 @@ import React, { useState } from 'react';
 import useCart from '../hooks/useCart';
 import useToast from '../hooks/useToast';
 
-/**
- * Product Card Component — Tile in the Store Grid
- *
- * Displays:
- *  - Product image (fallback to generated placeholder)
- *  - Category badge
- *  - Name, description
- *  - Price, stock status (in, low, out)
- *  - "Add to Cart" button (disabled if out of stock)
- *
- * Behavior:
- *  - Button shows loading state while API request is in-flight
- *  - Shows "Added!" success state for 2 seconds after successful add
- *  - Toast notification provides feedback (success or error)
- *  - Stock status color-codes: green (in), orange (low ≤10), red (out)
- */
 const DEFAULT_IMAGE =
   'data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22400%22%20height%3D%22300%22%3E%3Crect%20width%3D%22400%22%20height%3D%22300%22%20fill%3D%22%23e5e7eb%22/%3E%3Ctext%20x%3D%22200%22%20y%3D%22155%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2220%22%20fill%3D%22%23666%22%20text-anchor%3D%22middle%22%3ENo%20Image%3C/text%3E%3C/svg%3E';
 
@@ -60,7 +44,6 @@ export default function ProductCard({ product }) {
   }, []);
 
   const handleImageError = () => {
-    // If custom URL fails, fall back to mapped local path, then generated SVG.
     const fallbackPath = fallbackImages[product.name];
     const nextSrc =
       imgSrc === fallbackPath
@@ -73,7 +56,6 @@ export default function ProductCard({ product }) {
   };
 
   const handleAddToCart = async () => {
-    // Prevent multiple concurrent add requests
     if (status !== 'idle') return;
     
     setStatus('loading');

@@ -8,19 +8,6 @@ import StorePage from './pages/StorePage';
 import CartPage from './pages/CartPage';
 import AdminPage from './pages/AdminPage';
 
-/**
- * Root App Component
- *
- * Structure:
- *  - ToastProvider wraps CartProvider (notifications available everywhere)
- *  - CartProvider: Global cart state + API layer for all components
- *  - Navbar: Fixed header with branding and navigation
- *  - CartSidebar: Slide-out panel (controlled by state)
- *  - Routes: SPA routing (/, /cart, /admin) handled client-side
- *
- * The app requires only one HTML entry point (index.html).
- * All navigation is client-side via React Router.
- */
 export default function App() {
   const [cartOpen, setCartOpen] = useState(false);
 

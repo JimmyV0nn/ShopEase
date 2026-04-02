@@ -1,13 +1,8 @@
 import mongoose from 'mongoose';
 import Product from '../models/Product.js';
 
-// Helper function to validate ObjectId
 const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 
-/**
- * GET /api/products
- * Returns all products, with optional ?search= and ?category= filters.
- */
 export const getProducts = async (req, res) => {
   const { search, category } = req.query;
   const filter = {};
@@ -25,9 +20,6 @@ export const getProducts = async (req, res) => {
   res.json({ success: true, data: products });
 };
 
-/**
- * GET /api/products/:id
- */
 export const getProductById = async (req, res) => {
   if (!isValidObjectId(req.params.id)) {
     return res.status(400).json({ success: false, message: 'Invalid product ID format' });
@@ -39,10 +31,6 @@ export const getProductById = async (req, res) => {
   res.json({ success: true, data: product });
 };
 
-/**
- * POST /api/products
- * Create a new product (Admin).
- */
 export const createProduct = async (req, res) => {
   const { name, description, price, imageUrl, category, stock = 100 } = req.body;
 
@@ -66,10 +54,6 @@ export const createProduct = async (req, res) => {
   res.status(201).json({ success: true, data: product });
 };
 
-/**
- * PUT /api/products/:id
- * Update an existing product (Admin).
- */
 export const updateProduct = async (req, res) => {
   // Validate ObjectId
   if (!isValidObjectId(req.params.id)) {
@@ -107,10 +91,6 @@ export const updateProduct = async (req, res) => {
   res.json({ success: true, data: product });
 };
 
-/**
- * DELETE /api/products/:id
- * Delete a product (Admin).
- */
 export const deleteProduct = async (req, res) => {
   if (!isValidObjectId(req.params.id)) {
     return res.status(400).json({ success: false, message: 'Invalid product ID format' });

@@ -2,14 +2,8 @@ import mongoose from 'mongoose';
 import Cart from '../models/Cart.js';
 import Product from '../models/Product.js';
 
-// Helper function to validate ObjectId
 const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);
 
-/**
- * GET /api/cart/:sessionId
- * Retrieve the cart and populate product details.
- * If no cart exists for the session, return an empty cart (don't 404).
- */
 export const getCart = async (req, res) => {
   const cart = await Cart.findOne({ sessionId: req.params.sessionId }).populate(
     'items.product'
@@ -24,11 +18,6 @@ export const getCart = async (req, res) => {
   res.json({ success: true, data: cart });
 };
 
-/**
- * POST /api/cart/:sessionId/items
- * Add an item to the cart or increment its quantity if already present.
- * Body: { productId, quantity }
- */
 export const addItem = async (req, res) => {
   const { productId, quantity = 1 } = req.body;
 
@@ -69,7 +58,6 @@ export const addItem = async (req, res) => {
     );
 
     if (existingItem) {
-      // Product already in cart — increment quantity
       const newQty = existingItem.quantity + quantity;
       if (newQty > product.stock) {
         return res.status(400).json({ success: false, message: 'Insufficient stock' });
@@ -85,11 +73,6 @@ export const addItem = async (req, res) => {
   res.status(201).json({ success: true, data: cart });
 };
 
-/**
- * PUT /api/cart/:sessionId/items/:productId
- * Update the quantity of a specific item in the cart.
- * Body: { quantity }
- */
 export const updateItem = async (req, res) => {
   const { quantity } = req.body;
 
@@ -130,10 +113,6 @@ export const updateItem = async (req, res) => {
   res.json({ success: true, data: cart });
 };
 
-/**
- * DELETE /api/cart/:sessionId/items/:productId
- * Remove a single item from the cart.
- */
 export const removeItem = async (req, res) => {
   // Validate ObjectId
   if (!isValidObjectId(req.params.productId)) {
@@ -154,11 +133,6 @@ export const removeItem = async (req, res) => {
   res.json({ success: true, data: cart });
 };
 
-/**
- * DELETE /api/cart/:sessionId
- * Clear all items from the cart.
- * Returns the cleared cart (empty items array).
- */
 export const clearCart = async (req, res) => {
   const cart = await Cart.findOne({ sessionId: req.params.sessionId });
   if (!cart) {
@@ -171,11 +145,6 @@ export const clearCart = async (req, res) => {
   res.json({ success: true, data: cart });
 };
 
-/**
- * POST /api/cart/:sessionId/checkout
- * Complete purchase: deduct stock from products and clear the cart.
- * Returns the final empty cart on success.
- */
 export const checkout = async (req, res) => {
   const cart = await Cart.findOne({ sessionId: req.params.sessionId }).populate(
     'items.product'
@@ -189,11 +158,8 @@ export const checkout = async (req, res) => {
   }
 
   try {
-    // Deduct stock for each item in the cart
     for (const item of cart.items) {
       const product = item.product;
-      
-      // Validate sufficient stock exists
       if (product.stock < item.quantity) {
         return res.status(400).json({
           success: false,
@@ -201,12 +167,10 @@ export const checkout = async (req, res) => {
         });
       }
 
-      // Deduct stock from product
       product.stock -= item.quantity;
       await product.save();
     }
 
-    // Clear the cart after successful stock deduction
     cart.items = [];
     await cart.save();
 

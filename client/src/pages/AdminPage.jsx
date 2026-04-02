@@ -10,36 +10,13 @@ import ProductForm from '../components/ProductForm';
 import ConfirmModal from '../components/ConfirmModal';
 import LoadingSpinner from '../components/LoadingSpinner';
 
-/**
- * Admin Page — Full CRUD Interface for Product Management
- *
- * Features:
- *  - Display all products in a table with stock information
- *  - Create: "New Product" button opens ProductForm modal
- *  - Read: Auto-fetch products on mount
- *  - Update: Edit button passes item to ProductForm modal (pre-populated)
- *  - Delete: Delete button shows confirmation modal before removal
- *
- * State Management:
- *  - products: Array of current product objects
- *  - loading: Boolean while fetching products initially
- *  - formOpen: Boolean toggle for ProductForm modal visibility
- *  - editTarget: null (create mode) or product object (edit mode)
- *  - formLoading: Boolean while form submission is in-flight
- *  - deleteTarget: { _id, name } for confirmation modal, or null
- *
- * Error Handling:
- *  - API errors are caught and displayed as toast notifications
- *  - Form submission disables buttons until complete
- *  - Delete confirmation prevents accidental data loss
- */
 export default function AdminPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [formOpen, setFormOpen] = useState(false);
-  const [editTarget, setEditTarget] = useState(null); // null = create mode, object = edit mode
+  const [editTarget, setEditTarget] = useState(null);
   const [formLoading, setFormLoading] = useState(false);
-  const [deleteTarget, setDeleteTarget] = useState(null); // { _id, name }
+  const [deleteTarget, setDeleteTarget] = useState(null);
   const { showToast } = useToast();
 
   const loadProducts = useCallback(async () => {
@@ -58,7 +35,6 @@ export default function AdminPage() {
     loadProducts();
   }, [loadProducts]);
 
-  // ── Create ──
   const handleCreate = async (data) => {
     setFormLoading(true);
     try {
@@ -73,7 +49,6 @@ export default function AdminPage() {
     }
   };
 
-  // ── Update ──
   const handleUpdate = async (data) => {
     setFormLoading(true);
     try {
@@ -89,7 +64,6 @@ export default function AdminPage() {
     }
   };
 
-  // ── Delete ──
   const handleDelete = async () => {
     try {
       await deleteProduct(deleteTarget._id);

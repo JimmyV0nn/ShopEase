@@ -1,8 +1,3 @@
-/**
- * Global Express error handler.
- * Catches errors thrown by async controllers (via express-async-errors).
- * Returns a consistent JSON error shape so the frontend always gets structured data.
- */
 const errorHandler = (err, req, res, next) => {
   console.error(`[ERROR] ${req.method} ${req.originalUrl} — ${err.message}`);
 

@@ -6,9 +6,6 @@ import useToast from '../hooks/useToast';
 
 const CATEGORIES = ['All', 'Electronics', 'Clothing', 'Books', 'Home & Kitchen', 'Sports'];
 
-/**
- * Main store page — product grid with search and category filter.
- */
 export default function StorePage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -32,25 +29,16 @@ export default function StorePage() {
     [showToast]
   );
 
-  // Initial load
   useEffect(() => {
     loadProducts('', 'All');
   }, [loadProducts]);
 
-  // Clean up debounce timer on unmount
   useEffect(() => {
     return () => {
-      if (debounceTimer.current) {
-        clearTimeout(debounceTimer.current);
-      }
+      if (debounceTimer.current) clearTimeout(debounceTimer.current);
     };
   }, []);
 
-  /**
-   * Debounce search input changes to avoid server spam.
-   * Waits 300ms after user stops typing before fetching filtered products.
-   * This improves both UX (smoother) and server performance.
-   */
   const handleSearchChange = (e) => {
     const val = e.target.value;
     setSearch(val);
@@ -60,10 +48,6 @@ export default function StorePage() {
     }, 300);
   };
 
-  /**
-   * Instant filter by category.
-   * No debounce needed — category selection is discrete, not continuous input.
-   */
   const handleCategoryChange = (cat) => {
     setCategory(cat);
     loadProducts(search, cat);
